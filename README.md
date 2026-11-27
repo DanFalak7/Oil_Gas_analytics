@@ -80,7 +80,41 @@ The supplied Power BI report contains five pages, each with a 1920 × 1080 canva
 | Cost Financial | Operating expenditure, budgets and cost patterns |
 | HSE Performance | Incident frequency, categories and severity |
 
-The report includes a custom Bullet Chart visual. Dashboard screenshots can be added to the `images/` directory to make the report easier to preview directly on GitHub.
+The report includes a custom Bullet Chart visual. The five dashboard screenshots are published in `powerbi/` and embedded below so visitors can preview the report directly on GitHub.
+
+### Dashboard gallery
+
+#### Senior Management
+
+![Senior Management dashboard](powerbi/Senior_Management.png)
+
+Consolidates production, expenditure, target achievement, budget variance, environmental incidents, lost-time injuries and equipment failures. It also highlights facilities with high unplanned downtime and areas requiring management attention.
+
+#### Production Performance
+
+![Production Performance dashboard](powerbi/Production_Performance.png)
+
+Examines oil production against target, monthly trends, field contribution and well-level performance, with facility, field, operator, year and product filters.
+
+#### Equipment Reliability
+
+![Equipment Reliability dashboard](powerbi/Equipment_Reliability.png)
+
+Explores failure categories, MTBF, corrective maintenance frequency, equipment age and maintenance cost, and unplanned downtime by facility.
+
+#### Cost Finance
+
+![Cost Finance dashboard](powerbi/Cost_Finance.png)
+
+Compares operating expenditure with budget, cost per barrel by field, offshore/onshore expenditure and maintenance's share of operating costs.
+
+#### HSE Performance
+
+![HSE Performance dashboard](powerbi/HSE_Performance.png)
+
+Reviews incident counts by facility and category, lost-time injuries, environmental incident trends and average resolution time.
+
+> All dashboard figures are generated from synthetic data and are illustrative, not actual operator performance.
 
 ## Python statistical analysis
 
@@ -120,11 +154,17 @@ Oil_Gas_analytics/
 │   └── postgresql_workflow.md
 ├── sql/                 # SQL scripts to be published
 ├── python/              # Jupyter notebook to be published
-├── powerbi/             # Power BI report to be published
-└── images/              # Dashboard screenshots to be added
+├── powerbi/
+│   ├── dashboard_documentation.md
+│   ├── Production_Performance.png
+│   ├── Equipment_Reliability.png
+│   ├── Cost_Finance.png
+│   ├── HSE_Performance.png
+│   └── Senior_Management.png
+└── ...
 ```
 
-The documentation files are published. The SQL scripts, notebook, PBIX report and screenshot assets remain to be committed as repository files; the folders above describe the intended publication layout, not a claim that those files are already present.
+The documentation files are published. The SQL workflow scripts, dashboard documentation and five dashboard screenshot assets are published. The Python notebook and PBIX report should be added as downloadable project files when ready; the screenshots provide a visual preview in the meantime.
 
 ## Data limitations and analytical integrity
 
