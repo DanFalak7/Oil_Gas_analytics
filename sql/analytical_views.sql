@@ -58,9 +58,9 @@ SELECT
     SUM(pr.crude_oil_produced_bbl) AS total_oil_produced_bbl,
     SUM(pr.natural_gas_produced_mscf) AS total_gas_produced_mscf,
     SUM(pr.water_produced_bbl) AS total_water_produced_bbl,
-    ROUND(
-        AVG(pr.actual_production_bbl), 
-		2 ) AS average_daily_actual_production_bbl,
+    -- Average per production record; this is not necessarily a calendar-day average
+    -- when a well has multiple records on the same date.
+    ROUND(AVG(pr.actual_production_bbl), 2) AS average_daily_actual_production_bbl,
     ROUND(
         SUM(pr.water_produced_bbl)
         / NULLIF(
@@ -268,7 +268,7 @@ SELECT
     e.equipment_condition,
     e.replacement_cost_usd,
     e.operating_hours,
-    e.facility_id,
+    m.facility_id,
     pf.facility_name,
     m.maintenance_date,
     m.maintenance_type,
@@ -288,7 +288,7 @@ FROM analytics.equipment_maintenance m
 LEFT JOIN analytics.equipment e
     ON m.equipment_id = e.equipment_id
 LEFT JOIN analytics.production_facilities pf
-    ON e.facility_id = pf.facility_id;
+    ON m.facility_id = pf.facility_id;
 
 
 SELECT COUNT(*)
