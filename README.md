@@ -166,6 +166,8 @@ See the [SQL workflow guide](sql/README.md) for script inventory, execution orde
 ```text
 Oil_Gas_analytics/
 ├── README.md
+├── requirements.txt
+├── .gitignore
 ├── documentation/
 │   ├── project_methodology.md
 │   ├── data_limitations.md
