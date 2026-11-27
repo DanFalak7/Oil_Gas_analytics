@@ -2,7 +2,7 @@
 
 An end-to-end business intelligence project analysing synthetic oil and gas operational data across production performance, equipment reliability, operating expenditure and HSE.
 
-**Tools:** PostgreSQL · SQL · Python · Pandas · NumPy · Statistical Analysis · Power BI
+**Tools:** PostgreSQL · SQL · Python · Pandas · NumPy · SciPy · Statsmodels · Matplotlib · Seaborn · Power BI
 
 > **Data disclosure:** This is an independent portfolio project built with synthetic data. It does not represent the operations, financial performance or safety record of a real oil and gas operator.
 
@@ -17,8 +17,9 @@ An end-to-end business intelligence project analysing synthetic oil and gas oper
 | Analytical layer | 6 SQL analytical views |
 | Statistical work | Python/Jupyter Notebook |
 | Business intelligence | Five-page Power BI dashboard |
+| Dashboard canvas | 1920 × 1080 per page |
 
-The solution follows a practical analytics workflow: inspect and validate source data, build a relational database, prepare analytical views, investigate business questions, and communicate findings through an interactive dashboard and management reporting.
+The solution follows a practical analytics workflow: inspect and validate source data, build a relational database, prepare analytical views, investigate business questions, and communicate the findings through an interactive dashboard and management reporting.
 
 ## Business context
 
@@ -63,69 +64,83 @@ This project simulates that environment and develops an integrated analytical so
 2. **PostgreSQL database development** — load the datasets into a relational database and establish primary/foreign-key relationships.
 3. **Data cleaning and validation** — address missing values, inconsistent categories, invalid values and referential-integrity issues.
 4. **SQL analytics** — prepare analytical views and query the operational business questions.
-5. **Python statistical analysis** — explore distributions, trends, relationships and potential anomalies in the prepared data.
+5. **Python statistical analysis** — explore distributions, trends, relationships and potential anomalies in the prepared production dataset.
 6. **Power BI reporting** — build an interactive dashboard for operational and management users.
 7. **Business interpretation** — communicate findings, limitations and recommended areas for investigation.
 
 ## Power BI dashboard
 
-The completed dashboard contains five pages, designed at 1920 × 1080:
+The supplied Power BI report contains five pages, each with a 1920 × 1080 canvas and a total of 101 visual definitions in the report:
 
-| Page | Audience / focus |
+| Page in report | Audience / focus |
 |---|---|
-| Management Overview | Senior management; consolidated performance and areas requiring attention |
-| Production Performance | Production trends, targets and operational performance |
-| Equipment Reliability | Maintenance activity, equipment failures and downtime |
-| Cost & Financial Performance | Operating expenditure, budgets and cost patterns |
+| Management | Senior management; consolidated performance and areas requiring attention |
+| Production | Production trends, targets and operational performance |
+| Equipment | Maintenance activity, equipment failures and downtime |
+| Cost Financial | Operating expenditure, budgets and cost patterns |
 | HSE Performance | Incident frequency, categories and severity |
 
-Dashboard screenshots and the Power BI file will be added to the repository as project assets.
+The report includes a custom Bullet Chart visual. Dashboard screenshots can be added to the `images/` directory to make the report easier to preview directly on GitHub.
+
+## Python statistical analysis
+
+The Jupyter notebook retrieves the production analytical view `analytics.vw_production_daily` from PostgreSQL. Its methods include:
+
+- Descriptive statistics: mean, median, variance, standard deviation, range, skewness and kurtosis.
+- IQR-based potential outlier identification.
+- Pearson and Spearman correlation coefficients, corresponding significance tests and approximate Fisher z-transformation confidence intervals for Pearson correlation.
+- Levene's test and Kruskal–Wallis testing for field-level production comparisons.
+- Pairwise Mann–Whitney U tests with Holm multiple-comparison adjustment and rank-biserial effect sizes.
+- Daily and monthly production stability using coefficient of variation.
+- Linear regression of monthly field production trends using slope, R-squared and p-values.
+
+See [Python statistical methods](documentation/python_statistical_methods.md) for the method descriptions and review notes. Correlation and regression patterns are observational and should not be interpreted as proof of causation.
+
+## PostgreSQL database and SQL workflow
+
+The SQL workflow is organised around three schemas:
+
+- `raw` — source tables initially loaded as text.
+- `staging` — prepared data used for standardisation and validation.
+- `analytics` — relational analytical tables and reusable views.
+
+The supplied SQL scripts cover raw and staging table creation, duplicate checks, missing-value and whitespace audits, standardisation, data validation, orphan foreign-key checks, analytics table creation, analytical views and business-question analysis.
+
+See [PostgreSQL workflow](documentation/postgresql_workflow.md) for the architecture and script inventory.
 
 ## Repository guide
-
-The repository is being organised around the following structure:
 
 ```text
 Oil_Gas_analytics/
 ├── README.md
-├── sql/
-│   ├── database_schema.sql
-│   ├── data_cleaning.sql
-│   ├── analytical_views.sql
-│   └── business_analysis.sql
-├── python/
-│   └── Oil_and_Gas_Statistical_Analysis.ipynb
-├── powerbi/
-│   └── Oil_and_Gas_Dashboard.pbix
-├── images/
-│   ├── management_overview.png
-│   ├── production_performance.png
-│   ├── equipment_reliability.png
-│   ├── cost_financial_performance.png
-│   └── hse_performance.png
-└── documentation/
-    ├── project_methodology.md
-    ├── database_architecture.md
-    ├── data_dictionary.md
-    ├── data_quality_and_validation.md
-    ├── business_findings.md
-    └── limitations.md
+├── documentation/
+│   ├── project_methodology.md
+│   ├── data_limitations.md
+│   ├── python_statistical_methods.md
+│   └── postgresql_workflow.md
+├── sql/                 # SQL scripts to be published
+├── python/              # Jupyter notebook to be published
+├── powerbi/             # Power BI report to be published
+└── images/              # Dashboard screenshots to be added
 ```
 
-Files will be added as the publication package is assembled. The structure above describes the intended organisation; it does not imply that every listed asset is already present.
+The documentation files are published. The SQL scripts, notebook, PBIX report and screenshot assets remain to be committed as repository files; the folders above describe the intended publication layout, not a claim that those files are already present.
 
-## Key data and analytical considerations
+## Data limitations and analytical integrity
 
 - The source data is synthetic and intended for learning and portfolio demonstration.
-- The database contains 67,023 records across ten datasets after the project’s loading and validation workflow.
-- Referential integrity and data-quality checks were part of the preparation process.
+- The database contains 67,023 records across ten datasets after the project's loading and validation workflow.
+- The production notebook analyses the prepared daily production view, not every source dataset.
 - Statistical association should not be interpreted as proof of causation.
 - Some operational KPIs require denominators or source fields that may not be available. Unsupported measures should be identified rather than estimated.
-- The repository will document analytical assumptions and limitations alongside the outputs.
+- A reliable TRIR or LTIFR requires workforce-hours, which are not available in the described source data. Incident counts should not be presented as exposure-adjusted safety rates.
+- Potential outliers are investigation flags, not automatically erroneous observations.
+
+See [Data limitations](documentation/data_limitations.md) for further detail.
 
 ## Reproducibility
 
-The SQL scripts, notebook and supporting documentation will be published to make the workflow understandable and reproducible. The Power BI report requires a compatible Power BI Desktop installation. Where source data cannot be redistributed, the repository will provide schema and data-dictionary documentation rather than imply that the original datasets are included.
+The SQL scripts, notebook and supporting documentation are intended to make the workflow understandable and reproducible. The Power BI report requires a compatible Power BI Desktop installation. Where source data cannot be redistributed, publish schema and data-dictionary documentation rather than imply that the original datasets are included.
 
 ## Author
 
