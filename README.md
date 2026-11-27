@@ -80,7 +80,7 @@ The supplied Power BI report contains five pages, each with a 1920 × 1080 canva
 | Cost Financial | Operating expenditure, budgets and cost patterns |
 | HSE Performance | Incident frequency, categories and severity |
 
-The report includes a custom Bullet Chart visual. The five dashboard screenshots are published in `powerbi/` and embedded below so visitors can preview the report directly on GitHub.
+The report includes a custom Bullet Chart visual. The [Power BI report (.pbix)](powerbi/Oil%20and%20gas%20Analytics%20Dashboard.pbix) is available to download, and the five dashboard screenshots are published in `powerbi/` and embedded below so visitors can preview the report directly on GitHub.
 
 ### Dashboard gallery
 
@@ -156,6 +156,7 @@ Oil_Gas_analytics/
 ├── python/
 │   └── Oil_and_Gas_Statistical_Analysis.ipynb
 ├── powerbi/
+│   ├── Oil and gas Analytics Dashboard.pbix
 │   ├── dashboard_documentation.md
 │   ├── Production_Performance.png
 │   ├── Equipment_Reliability.png
@@ -165,7 +166,7 @@ Oil_Gas_analytics/
 └── ...
 ```
 
-The documentation files, SQL workflow scripts, Python statistical analysis notebook, dashboard documentation and five dashboard screenshot assets are published. The Power BI PBIX file is not currently included; the screenshots provide a visual preview of the report.
+The documentation files, SQL workflow scripts, Python statistical analysis notebook, Power BI PBIX report, dashboard documentation and five dashboard screenshot assets are published.
 
 ## Data limitations and analytical integrity
 
