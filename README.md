@@ -68,6 +68,25 @@ This project simulates that environment and develops an integrated analytical so
 6. **Power BI reporting** — build an interactive dashboard for operational and management users.
 7. **Business interpretation** — communicate findings, limitations and recommended areas for investigation.
 
+## Solution architecture
+
+The project separates source ingestion, data preparation, analytical storage and downstream reporting. CSV files are imported manually into the raw layer; SQL scripts then prepare and validate the data before it is exposed to Power BI and Python.
+
+```mermaid
+flowchart TD
+    A["10 synthetic source datasets<br/>CSV files"] -->|"Manual import in pgAdmin"| B["PostgreSQL: raw schema<br/>Source values stored as text"]
+    B --> C["staging schema<br/>Typed tables and transformations"]
+    C --> D["Quality checks<br/>Duplicates, calculations and relationships"]
+    D --> E["analytics schema<br/>Relational tables and constraints"]
+    E --> F["7 analytical SQL views"]
+    F --> G["Power BI<br/>5-page interactive dashboard"]
+    F --> H["Python / Jupyter<br/>Statistical analysis"]
+    G --> I["Operational and management reporting"]
+    H --> I
+```
+
+**Important:** The diagram represents the documented workflow, not an automated ETL pipeline. Raw CSV imports and review of validation outputs require manual steps.
+
 ## Power BI dashboard
 
 The supplied Power BI report contains five pages, each with a 1920 × 1080 canvas and a total of 101 visual definitions in the report:
@@ -80,7 +99,7 @@ The supplied Power BI report contains five pages, each with a 1920 × 1080 canva
 | Cost Financial | Operating expenditure, budgets and cost patterns |
 | HSE Performance | Incident frequency, categories and severity |
 
-The report includes a custom Bullet Chart visual. The [Power BI report (.pbix)](powerbi/Oil%20and%20gas%20Analytics%20Dashboard.pbix) is available to download, and the five dashboard screenshots are published in `powerbi/` and embedded below so visitors can preview the report directly on GitHub.
+The report includes a custom Bullet Chart visual. The [Power BI report (.pbix)](powerbi/Oil%20and%20gas%20Analytics%20Dashboard.pbix) is available to download. The [dashboard documentation](powerbi/dashboard_documentation.md) describes the report pages, measures and reproduction steps. Five screenshots are embedded below for preview.
 
 ### Dashboard gallery
 
@@ -128,7 +147,7 @@ The Jupyter notebook retrieves the production analytical view `analytics.vw_prod
 - Daily and monthly production stability using coefficient of variation.
 - Linear regression of monthly field production trends using calendar-month spacing, slope, R-squared and p-values.
 
-See [Python statistical methods](documentation/python_statistical_methods.md) for the method descriptions and review notes. The complete [Jupyter notebook](python/Oil_and_Gas_Statistical_Analysis.ipynb) is published in this repository, including its analysis code, outputs and visualisations. Correlation and regression patterns are observational and should not be interpreted as proof of causation. Correlation significance tests and confidence intervals are exploratory; daily observations may be serially dependent, so conventional p-values and intervals should be interpreted cautiously.
+See [Python setup and usage](python/README.md) and [Python statistical methods](documentation/python_statistical_methods.md) for connection instructions and method descriptions. The complete [Jupyter notebook](python/Oil_and_Gas_Statistical_Analysis.ipynb) is published in this repository, including its analysis code, outputs and visualisations. Correlation and regression patterns are observational and should not be interpreted as proof of causation. Correlation significance tests and confidence intervals are exploratory; daily observations may be serially dependent, so conventional p-values and intervals should be interpreted cautiously.
 
 ## PostgreSQL database and SQL workflow
 
@@ -140,7 +159,7 @@ The SQL workflow is organised around three schemas:
 
 The published SQL scripts cover raw and staging table creation, duplicate checks, data validation, orphan foreign-key checks, analytics table creation and seven analytical views. Missing-value treatment and category standardisation were part of the project workflow; verify the corresponding script is published before describing it as a standalone repository artefact.
 
-See [PostgreSQL workflow](documentation/postgresql_workflow.md) for the architecture and script inventory.
+See the [SQL workflow guide](sql/README.md) for script inventory, execution order and database setup notes, and [PostgreSQL workflow](documentation/postgresql_workflow.md) for the relational design.
 
 ## Repository guide
 
@@ -167,7 +186,7 @@ Oil_Gas_analytics/
 └── ...
 ```
 
-The documentation files, SQL workflow scripts, Python statistical analysis notebook and companion Python script, Power BI PBIX report, dashboard documentation and five dashboard screenshot assets are published.
+The repository includes the SQL scripts and SQL workflow guide, Python notebook and companion script, Python setup guide, Power BI PBIX report, dashboard documentation, five dashboard screenshots and supporting methodology/limitations documents.
 
 ## Data limitations and analytical integrity
 
