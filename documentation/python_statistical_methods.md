@@ -60,16 +60,16 @@ Calculates field-level standard deviation, interquartile range and coefficient o
 A lower CV indicates lower relative variability around the mean; it should be interpreted with the underlying production scale and observation count.
 
 ### 8. Production trend analysis
-Uses SciPy's `linregress` on sequential monthly observations for each field. Reports the monthly slope, slope as a percentage of mean monthly production, first-three versus last-three-month average change, R-squared and regression p-value.
+Uses SciPy's `linregress` for each field, with the x-variable based on calendar-month ordinals rather than compressed row positions. This preserves elapsed calendar time when a month has no recorded observation. Reports the monthly slope, slope as a percentage of mean monthly production, first-three versus last-three-observed-month average change, R-squared and regression p-value.
 
 This is a linear trend summary over the analysed period, not a reservoir-decline model and not evidence of the cause of a production trend.
 
-## Review notes before final publication
+## Interpretation and review notes
 
-The notebook's pairwise-comparison output currently labels two columns `Median 1` and `Median 2`, but the code assigns each group's **mean** to those columns. Rename the columns to `Mean 1` and `Mean 2`, or calculate actual medians.
+The pairwise-comparison output reports group means and medians separately, including their differences. The rank-biserial effect-size calculation is oriented to the order of the two field groups: positive values indicate that Field 1 tends to have higher observations than Field 2; negative values indicate the reverse.
 
-The notebook's rank-biserial effect-size sign depends on the ordering of the two field groups passed to the Mann–Whitney U test. Preserve and explain that direction when interpreting positive or negative values.
+The notebook uses non-parametric field comparisons, but it does not include a formal normality test. Do not claim that normality was tested.
 
-The notebook uses non-parametric field comparisons, but the documented code does not include a formal normality test. Do not claim that normality was tested.
+Correlation p-values are not adjusted for multiple testing. The Fisher z confidence intervals are conventional approximations and are not adjusted for serial dependence. Daily production observations may be serially dependent, so conventional p-values, confidence intervals and independent-sample test results should be treated as exploratory.
 
-Before publishing statistical conclusions, verify the actual notebook outputs, sample sizes, assumptions, missing-data handling and the interpretation of each p-value. Do not treat a statistically significant result as automatically operationally material.
+Before interpreting results, review the actual sample sizes, missing-data handling, test statistics and operational context. Statistical significance does not automatically imply operational importance, and none of these observational analyses establishes causation.
