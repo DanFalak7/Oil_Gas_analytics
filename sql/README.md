@@ -21,7 +21,9 @@ The scripts are designed for the `oil_gas_analytics` database and were managed t
 - **Create the `raw` schema first.** The raw-table script defines tables under `raw`, but does not create that schema.
 - **Load the source files into the raw tables** using the import process in pgAdmin before running duplicate checks and staging transformations. The raw-table script defines table structures; it does not load the source CSV files by itself.
 - Run the staging script only after the raw tables have been populated.
-- The validation and orphan-reference scripts operate on the staging layer. Review their outputs and the records they update.
+- The validation and orphan-reference scripts operate on the staging layer. Review their outputs and the records they update. The orphan-reference script distinguishes NULL references from non-NULL missing references and includes post-correction checks.
+- The hard-coded orphan-ID mappings in the orphan-reference script are specific to this synthetic dataset. They are guarded by matching/reference checks and must not be reused for another dataset without re-investigation.
+- The validation script uses tolerances for selected calculated fields. Missing values and incomplete cost components should be interpreted according to the source-data definitions, not automatically assumed to be zero.
 - Run the analytics loading script after staging data and relationships have been checked. It creates and populates the analytical tables.
 - Create the analytical views after the analytical tables have been loaded.
 - These scripts are not a single unattended deployment pipeline. Some steps require manual CSV import and review of query results in pgAdmin.
