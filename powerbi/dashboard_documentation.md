@@ -127,3 +127,30 @@ Do not commit database passwords, credentials or machine-specific connection set
 - Dashboard findings depend on the synthetic dataset, business rules, filters and DAX measures.
 - Do not infer rates requiring workforce-hours exposure data (such as TRIR or LTIFR) without the required denominator.
 - Interpret budget variance using the measure's documented sign convention.
+
+
+## Dashboard screenshot gallery
+
+The following screenshots are committed in this repository and can be viewed directly on GitHub.
+
+### Production Performance
+
+![Production Performance](Production_Performance.png)
+
+### Equipment Reliability
+
+![Equipment Reliability](Equipment_Reliability.png)
+
+### Cost Finance
+
+![Cost Finance](Cost_Finance.png)
+
+### HSE Performance
+
+![HSE Performance](HSE_Performance.png)
+
+### Senior Management
+
+![Senior Management](Senior_Management.png)
+
+All figures shown are synthetic and intended for portfolio demonstration only.
