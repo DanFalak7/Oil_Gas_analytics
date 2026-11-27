@@ -14,7 +14,7 @@ An end-to-end business intelligence project analysing synthetic oil and gas oper
 | Source datasets | 10 relational datasets |
 | Validated records | 67,023 |
 | Database | PostgreSQL |
-| Analytical layer | 6 SQL analytical views |
+| SQL analytical views | 7 reusable views (including maintenance-event detail) |
 | Statistical work | Python/Jupyter Notebook |
 | Business intelligence | Five-page Power BI dashboard |
 | Dashboard canvas | 1920 × 1080 per page |
@@ -138,7 +138,7 @@ The SQL workflow is organised around three schemas:
 - `staging` — prepared data used for standardisation and validation.
 - `analytics` — relational analytical tables and reusable views.
 
-The published SQL scripts cover raw and staging table creation, duplicate checks, missing-value and whitespace audits, standardisation, data validation, orphan foreign-key checks, analytics table creation and analytical views.
+The published SQL scripts cover raw and staging table creation, duplicate checks, data validation, orphan foreign-key checks, analytics table creation and seven analytical views. Missing-value treatment and category standardisation were part of the project workflow; verify the corresponding script is published before describing it as a standalone repository artefact.
 
 See [PostgreSQL workflow](documentation/postgresql_workflow.md) for the architecture and script inventory.
 
