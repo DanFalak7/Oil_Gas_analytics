@@ -123,12 +123,12 @@ The Jupyter notebook retrieves the production analytical view `analytics.vw_prod
 - Descriptive statistics: mean, median, variance, standard deviation, range, skewness and kurtosis.
 - IQR-based potential outlier identification.
 - Pearson and Spearman correlation coefficients, corresponding significance tests and approximate Fisher z-transformation confidence intervals for Pearson correlation.
-- Levene's test and Kruskal–Wallis testing for field-level production comparisons.
+- Median-centred Levene's test for variance comparisons and Kruskal–Wallis testing for field-level production comparisons.
 - Pairwise Mann–Whitney U tests with Holm multiple-comparison adjustment and rank-biserial effect sizes.
 - Daily and monthly production stability using coefficient of variation.
-- Linear regression of monthly field production trends using slope, R-squared and p-values.
+- Linear regression of monthly field production trends using calendar-month spacing, slope, R-squared and p-values.
 
-See [Python statistical methods](documentation/python_statistical_methods.md) for the method descriptions and review notes. The complete [Jupyter notebook](python/Oil_and_Gas_Statistical_Analysis.ipynb) is published in this repository, including its analysis code, outputs and visualisations. Correlation and regression patterns are observational and should not be interpreted as proof of causation.
+See [Python statistical methods](documentation/python_statistical_methods.md) for the method descriptions and review notes. The complete [Jupyter notebook](python/Oil_and_Gas_Statistical_Analysis.ipynb) is published in this repository, including its analysis code, outputs and visualisations. Correlation and regression patterns are observational and should not be interpreted as proof of causation. Correlation significance tests and confidence intervals are exploratory; daily observations may be serially dependent, so conventional p-values and intervals should be interpreted cautiously.
 
 ## PostgreSQL database and SQL workflow
 
@@ -154,7 +154,8 @@ Oil_Gas_analytics/
 │   └── postgresql_workflow.md
 ├── sql/                 # Published PostgreSQL scripts
 ├── python/
-│   └── Oil_and_Gas_Statistical_Analysis.ipynb
+│   ├── Oil_and_Gas_Statistical_Analysis.ipynb
+│   └── Oil_and_Gas_Statistical_Analysis.py
 ├── powerbi/
 │   ├── Oil and gas Analytics Dashboard.pbix
 │   ├── dashboard_documentation.md
@@ -166,7 +167,7 @@ Oil_Gas_analytics/
 └── ...
 ```
 
-The documentation files, SQL workflow scripts, Python statistical analysis notebook, Power BI PBIX report, dashboard documentation and five dashboard screenshot assets are published.
+The documentation files, SQL workflow scripts, Python statistical analysis notebook and companion Python script, Power BI PBIX report, dashboard documentation and five dashboard screenshot assets are published.
 
 ## Data limitations and analytical integrity
 
