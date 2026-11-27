@@ -11,7 +11,7 @@ WHERE production_target_bbl IS NOT NULL
       production_variance_bbl IS NULL
       OR ABS(production_variance_bbl -
              (actual_production_bbl - production_target_bbl)) > 0.01
-  ) -- tolerance for rounding differences; NULL calculated values are also reported
+  ) -- tolerance for rounding differences; missing stored values are also reported
 ORDER BY 1;
 
 -- Update Variance calculation
@@ -57,13 +57,14 @@ SET water_cut_percentage =
 WHERE crude_oil_produced_bbl IS NOT NULL
   AND water_produced_bbl IS NOT NULL
   AND crude_oil_produced_bbl + water_produced_bbl > 0
-  AND ABS(
-      water_cut_percentage -
-      ( water_produced_bbl /
-          NULLIF(
-              crude_oil_produced_bbl + water_produced_bbl,
-              0 ) * 100
-      ) ) > 0.5;
+  AND (
+      water_cut_percentage IS NULL
+      OR ABS(
+          water_cut_percentage -
+          (water_produced_bbl /
+           NULLIF(crude_oil_produced_bbl + water_produced_bbl, 0) * 100)
+      ) > 0.5
+  );
 
 
 -- Validate total operating costs
