@@ -7,11 +7,11 @@ SELECT production_id,
 FROM staging.production_records
 WHERE production_target_bbl IS NOT NULL
   AND actual_production_bbl IS NOT NULL
-  AND production_variance_bbl IS NOT NULL
-  AND ABS(
-      production_variance_bbl -
-      (actual_production_bbl - production_target_bbl)
-  ) > 0.01 -- threshold for floating point rounding differences
+  AND (
+      production_variance_bbl IS NULL
+      OR ABS(production_variance_bbl -
+             (actual_production_bbl - production_target_bbl)) > 0.01
+  ) -- tolerance for rounding differences; NULL calculated values are also reported
 ORDER BY 1;
 
 -- Update Variance calculation
@@ -20,11 +20,11 @@ UPDATE staging.production_records
 SET production_variance_bbl = actual_production_bbl - production_target_bbl
 WHERE production_target_bbl IS NOT NULL
   AND actual_production_bbl IS NOT NULL
-  AND production_variance_bbl IS NOT NULL
-  AND ABS(
-      production_variance_bbl -
-      (actual_production_bbl - production_target_bbl)
-  ) > 0.01;
+  AND (
+      production_variance_bbl IS NULL
+      OR ABS(production_variance_bbl -
+             (actual_production_bbl - production_target_bbl)) > 0.01
+  );
 
 -- Validate water cut percentage
 SELECT
@@ -37,15 +37,14 @@ SELECT
 FROM staging.production_records
 WHERE crude_oil_produced_bbl IS NOT NULL
   AND water_produced_bbl IS NOT NULL
-  AND water_cut_percentage IS NOT NULL
   AND crude_oil_produced_bbl + water_produced_bbl > 0
-  AND ABS(
-      water_cut_percentage -
-      ( water_produced_bbl /
-          NULLIF(
-              crude_oil_produced_bbl + water_produced_bbl,
-              0 ) * 100
-      ) ) > 0.5
+  AND (
+      water_cut_percentage IS NULL
+      OR ABS(water_cut_percentage -
+          (water_produced_bbl /
+           NULLIF(crude_oil_produced_bbl + water_produced_bbl, 0) * 100)
+      ) > 0.5
+  )
 ORDER BY production_date;
 
 -- Update water_cut_percentage
@@ -57,7 +56,6 @@ SET water_cut_percentage =
         ) * 100, 2)
 WHERE crude_oil_produced_bbl IS NOT NULL
   AND water_produced_bbl IS NOT NULL
-  AND water_cut_percentage IS NOT NULL
   AND crude_oil_produced_bbl + water_produced_bbl > 0
   AND ABS(
       water_cut_percentage -
@@ -137,18 +135,20 @@ SELECT
     day_name,
     TO_CHAR(full_date, 'FMDay') AS expected_day_name
 FROM staging.date_dimension
-WHERE day <> EXTRACT(DAY FROM full_date)
-   OR month <> EXTRACT(MONTH FROM full_date)
-   OR year <> EXTRACT(YEAR FROM full_date)
-   OR LOWER(BTRIM(month_name)) <>
-      LOWER(TO_CHAR(full_date, 'FMMonth'))
-   OR LOWER(BTRIM(day_name)) <>
-      LOWER(TO_CHAR(full_date, 'FMDay'))
-ORDER BY full_date
+WHERE day IS DISTINCT FROM EXTRACT(DAY FROM full_date)::INTEGER
+   OR month IS DISTINCT FROM EXTRACT(MONTH FROM full_date)::INTEGER
+   OR year IS DISTINCT FROM EXTRACT(YEAR FROM full_date)::INTEGER
+   OR LOWER(BTRIM(month_name)) IS DISTINCT FROM LOWER(TO_CHAR(full_date, 'FMMonth'))
+   OR LOWER(BTRIM(day_name)) IS DISTINCT FROM LOWER(TO_CHAR(full_date, 'FMDay'))
+   OR quarter IS DISTINCT FROM
+      CASE EXTRACT(QUARTER FROM full_date)
+          WHEN 1 THEN 'Q1' WHEN 2 THEN 'Q2'
+          WHEN 3 THEN 'Q3' ELSE 'Q4'
+      END
 )
 SELECT *
 FROM date_cte
-WHERE quarter <> expected_quarter;
+ORDER BY full_date;
 
 -- Validate Production Operating Hours and Downtime
 SELECT
