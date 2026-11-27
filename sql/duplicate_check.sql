@@ -8,6 +8,7 @@ SELECT 'daily_operating_costs' AS table_name,
 FROM raw.daily_operating_costs
 GROUP BY cost_id
 HAVING COUNT(*) > 1
+   AND cost_id IS NOT NULL
 
 UNION ALL
 
@@ -17,6 +18,7 @@ SELECT 'date_dimension',
 FROM raw.date_dimension
 GROUP BY date_id
 HAVING COUNT(*) > 1
+   AND date_id IS NOT NULL
 
 UNION ALL
 
@@ -26,6 +28,7 @@ SELECT 'equipment',
 FROM raw.equipment
 GROUP BY equipment_id
 HAVING COUNT(*) > 1
+   AND equipment_id IS NOT NULL
 
 UNION ALL
 
@@ -35,6 +38,7 @@ SELECT 'equipment_maintenance',
 FROM raw.equipment_maintenance
 GROUP BY maintenance_id
 HAVING COUNT(*) > 1
+   AND maintenance_id IS NOT NULL
 
 UNION ALL
 
@@ -44,6 +48,7 @@ SELECT 'hse_incidents',
 FROM raw.hse_incidents
 GROUP BY incident_id
 HAVING COUNT(*) > 1
+   AND incident_id IS NOT NULL
 
 UNION ALL
 
@@ -53,6 +58,7 @@ SELECT 'oil_gas_fields',
 FROM raw.oil_gas_fields
 GROUP BY field_id
 HAVING COUNT(*) > 1
+   AND field_id IS NOT NULL
 
 UNION ALL
 
@@ -62,6 +68,7 @@ SELECT 'operators_contractors',
 FROM raw.operators_contractors
 GROUP BY operator_id
 HAVING COUNT(*) > 1
+   AND operator_id IS NOT NULL
 
 UNION ALL
 
@@ -71,6 +78,7 @@ SELECT 'production_facilities',
 FROM raw.production_facilities
 GROUP BY facility_id
 HAVING COUNT(*) > 1
+   AND facility_id IS NOT NULL
 
 UNION ALL
 
@@ -80,6 +88,7 @@ SELECT 'production_records',
 FROM raw.production_records
 GROUP BY production_id
 HAVING COUNT(*) > 1
+   AND production_id IS NOT NULL
 
 UNION ALL
 
@@ -89,4 +98,5 @@ SELECT 'wells',
 FROM raw.wells
 GROUP BY well_id
 HAVING COUNT(*) > 1
+   AND well_id IS NOT NULL
 ORDER BY table_name, duplicate_key;
