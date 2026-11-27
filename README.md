@@ -202,7 +202,7 @@ See [Data limitations](documentation/data_limitations.md) for further detail.
 
 ## Reproducibility
 
-The SQL scripts, notebook and supporting documentation are intended to make the workflow understandable and reproducible. The Power BI report requires a compatible Power BI Desktop installation. Where source data cannot be redistributed, publish schema and data-dictionary documentation rather than imply that the original datasets are included.
+The SQL scripts, notebook and supporting documentation are intended to make the workflow understandable and reproducible. Python dependencies are listed in [requirements.txt](requirements.txt), with environment and database setup instructions in [python/README.md](python/README.md). The Power BI report requires a compatible Power BI Desktop installation. Where source data cannot be redistributed, publish schema and data-dictionary documentation rather than imply that the original datasets are included.
 
 ## Author
 
