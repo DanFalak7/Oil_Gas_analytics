@@ -1,5 +1,9 @@
 # Power BI Dashboard Documentation
 
+## Download the Power BI report
+
+The Power BI Desktop report is available here: [Oil and gas Analytics Dashboard.pbix](Oil%20and%20gas%20Analytics%20Dashboard.pbix). Open it with Power BI Desktop. You may need to configure the PostgreSQL connection for your own environment before refreshing the data.
+
 ## Overview
 
 This Power BI report presents an operational performance dashboard for a synthetic oil and gas business. It brings together production, equipment reliability, operating costs and HSE indicators for management review.
