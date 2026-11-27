@@ -172,7 +172,9 @@ Oil_Gas_analytics/
 │   ├── project_methodology.md
 │   ├── data_limitations.md
 │   ├── python_statistical_methods.md
-│   └── postgresql_workflow.md
+|   ├── postgresql_workflow.md
+|   ├── oil and gas analytics report.pdf 
+│   └── Oil and Gas Analytics - Technical Documentation.pdf
 ├── sql/                 # Published PostgreSQL scripts
 ├── python/
 │   ├── Oil_and_Gas_Statistical_Analysis.ipynb
