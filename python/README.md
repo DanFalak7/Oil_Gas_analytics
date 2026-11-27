@@ -18,8 +18,10 @@ The analysis uses Pandas, NumPy, SciPy, Statsmodels, SQLAlchemy, psycopg2, Matpl
 Use Python 3.10 or later and install the required packages:
 
 ```bash
-python -m pip install pandas numpy sqlalchemy psycopg2-binary scipy statsmodels scikit-learn matplotlib seaborn jupyter
+python -m pip install -r requirements.txt
 ```
+
+The root-level `requirements.txt` is the dependency source of truth for this repository. It includes the packages imported by the published analysis script; `scikit-learn` is not required by the current analysis.
 
 You also need:
 
