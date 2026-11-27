@@ -128,7 +128,7 @@ The Jupyter notebook retrieves the production analytical view `analytics.vw_prod
 - Daily and monthly production stability using coefficient of variation.
 - Linear regression of monthly field production trends using slope, R-squared and p-values.
 
-See [Python statistical methods](documentation/python_statistical_methods.md) for the method descriptions and review notes. Correlation and regression patterns are observational and should not be interpreted as proof of causation.
+See [Python statistical methods](documentation/python_statistical_methods.md) for the method descriptions and review notes. The complete [Jupyter notebook](python/Oil_and_Gas_Statistical_Analysis.ipynb) is published in this repository, including its analysis code, outputs and visualisations. Correlation and regression patterns are observational and should not be interpreted as proof of causation.
 
 ## PostgreSQL database and SQL workflow
 
@@ -138,7 +138,7 @@ The SQL workflow is organised around three schemas:
 - `staging` — prepared data used for standardisation and validation.
 - `analytics` — relational analytical tables and reusable views.
 
-The supplied SQL scripts cover raw and staging table creation, duplicate checks, missing-value and whitespace audits, standardisation, data validation, orphan foreign-key checks, analytics table creation, analytical views and business-question analysis.
+The published SQL scripts cover raw and staging table creation, duplicate checks, missing-value and whitespace audits, standardisation, data validation, orphan foreign-key checks, analytics table creation and analytical views.
 
 See [PostgreSQL workflow](documentation/postgresql_workflow.md) for the architecture and script inventory.
 
@@ -152,8 +152,9 @@ Oil_Gas_analytics/
 │   ├── data_limitations.md
 │   ├── python_statistical_methods.md
 │   └── postgresql_workflow.md
-├── sql/                 # SQL scripts to be published
-├── python/              # Jupyter notebook to be published
+├── sql/                 # Published PostgreSQL scripts
+├── python/
+│   └── Oil_and_Gas_Statistical_Analysis.ipynb
 ├── powerbi/
 │   ├── dashboard_documentation.md
 │   ├── Production_Performance.png
@@ -164,7 +165,7 @@ Oil_Gas_analytics/
 └── ...
 ```
 
-The documentation files are published. The SQL workflow scripts, dashboard documentation and five dashboard screenshot assets are published. The Python notebook and PBIX report should be added as downloadable project files when ready; the screenshots provide a visual preview in the meantime.
+The documentation files, SQL workflow scripts, Python statistical analysis notebook, dashboard documentation and five dashboard screenshot assets are published. The Power BI PBIX file is not currently included; the screenshots provide a visual preview of the report.
 
 ## Data limitations and analytical integrity
 
