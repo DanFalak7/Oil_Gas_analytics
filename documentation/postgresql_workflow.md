@@ -32,12 +32,12 @@ The project covers ten subject areas:
 | `raw_schema_and_tables.sql` | Creates raw source tables |
 | `staging_schema_and_table_import.sql` | Creates staging tables and supports raw-to-staging loading |
 | `duplicate_check.sql` | Checks duplicate key values in raw tables |
-| `missing_values_whitespace_and_standardization.sql` | Audits missing values and standardises text values |
+| Missing-value and standardisation workflow | The corresponding script is not currently verified at the path previously documented; do not assume it is included until the exact file is located and published |
 | `data_validation.sql` | Checks and corrects selected derived values |
 | `orphan_foreign_keys_handling.sql` | Identifies and handles orphaned relationship keys |
-| `analytics_schema_and_table.sql` | Creates analytics schema tables and relational constraints |
+| `analytics_schema_and_table_loading.sql` | Creates analytics schema tables and relational constraints |
 | `analytical_views.sql` | Creates reusable analytical views |
-| `business_problem_analysis.sql` | Contains SQL investigations for the business questions |
+
 
 ## Relational and analytical design
 
@@ -47,7 +47,7 @@ When joining multiple fact tables, aggregate each fact table to a compatible gra
 
 ## Validation principles
 
-The workflow includes duplicate checks, missing-value and whitespace audits, category standardisation, derived-value validation and orphan foreign-key checks. The project reports 67,023 records loaded across the ten source datasets after the cleaning and validation workflow.
+The verified scripts include duplicate-key checks, derived-value validation and orphan foreign-key checks. The project workflow also involved missing-value treatment and category standardisation, but a corresponding SQL script was not verified at the previously documented path. The project reports 67,023 records loaded across the ten source datasets after the cleaning and validation workflow.
 
 ## Execution notes
 
