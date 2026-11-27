@@ -2,55 +2,114 @@
 
 ## Overview
 
-The Power BI report provides an operational performance view of a synthetic oil and gas business. It is designed to help management examine production, equipment reliability, operating costs and HSE performance.
+This Power BI report presents an operational performance dashboard for a synthetic oil and gas business. It brings together production, equipment reliability, operating costs and HSE indicators for management review.
 
-The report connects to the project's PostgreSQL analytical layer, which contains relational analytical tables and views prepared from the staging schema.
-
-> **Data disclosure:** This is a portfolio project built with synthetic data. It does not represent actual operational, safety, production or financial information from an oil and gas operator.
+The report uses the PostgreSQL `analytics` layer. The dataset is synthetic and does not represent actual operational, safety, production or financial information from an oil and gas operator.
 
 ## Report structure
 
-The supplied Power BI report contains five pages. Each page uses a 1920 × 1080 canvas.
+The report contains five pages, each captured at approximately 16:9 widescreen resolution.
 
-| Page | Visual count | Focus |
+| Page | Visual count* | Main purpose |
 |---|---:|---|
-| Management | 20 | Management-level overview of operational performance |
-| Production | 22 | Production volumes, targets, variance and well/field performance |
-| Equipment | 18 | Equipment reliability, maintenance activity and downtime |
-| Cost Financial | 22 | Operating expenditure, cost categories and budget variance |
-| HSE Performance | 19 | Incident categories, severity and HSE performance |
+| Production Performance | 22 | Production volumes, targets, field contribution and well performance |
+| Equipment Reliability | 18 | Equipment failures, MTBF, corrective maintenance and downtime |
+| Cost Finance | 22 | Operating expenditure, cost per barrel, budget comparison and cost composition |
+| HSE Performance | 19 | Incident categories, injuries, environmental incidents and resolution time |
+| Senior Management | 20 | Cross-functional KPIs, monthly production performance, downtime, HSE exposure and budget variance |
 
-**Total: 101 visuals across five report pages.**
+*Visual counts reflect the report inventory previously inspected in the Power BI file. Total: 101 visuals.
 
-## Analytical areas
+## Page-by-page walkthrough
 
-### Management
-Provides a consolidated view of the project's major operational performance areas for management review.
+### 1. Production Performance
 
-### Production
-Examines daily production performance and supports analysis of crude oil, natural gas, water production, production targets, production variance and operating conditions.
+The page provides year, product (gas/oil), facility, field and operator filters. Its KPI strip includes total oil production, production variance, total production downtime, target achievement and average daily production.
 
-### Equipment
-Supports review of maintenance activity, equipment failures and downtime to help identify reliability concerns and maintenance priorities.
+Visuals include:
+- Actual production versus production target by field.
+- Monthly and quarterly oil production trend.
+- Field production contribution.
+- Average daily oil production by well, including top and bottom performers.
+- A WaterCut selector/measure.
 
-### Cost Financial
-Examines operating expenditure by category and supports comparison of actual costs against budgeted costs.
+The screenshot shows a total oil production KPI of approximately 4.50 million barrels, production variance of approximately -1.82 million barrels, production downtime of approximately 272.36K hours, target achievement of 71.21%, and average daily production of approximately 4.11K barrels. These are outputs from the synthetic dataset and report measures.
 
-### HSE Performance
-Supports analysis of incident categories, severity, injury information and environmental impact.
+### 2. Equipment Reliability
+
+The page supports filtering by equipment category, main equipment type, facility and maintenance status. Its KPI strip shows total failure events, average MTBF, unplanned downtime, maintenance expenditure and corrective work orders.
+
+Visuals include:
+- Breakdown of equipment failure categories.
+- Average time between equipment failures by category.
+- Equipment with the highest corrective maintenance frequency.
+- Equipment age versus maintenance cost.
+- Unplanned downtime by facility.
+
+The displayed KPI values include 2,067 failure events, average MTBF of approximately 2.7K hours, unplanned downtime of approximately 25.9K hours, maintenance expenditure of approximately USD 17.65M and approximately 2K corrective work orders.
+
+### 3. Cost Finance
+
+The page provides category, equipment-type, facility and maintenance-status filters. Its KPI strip includes total operating expenditure, maintenance expenditure, operating cost per barrel, maintenance share of OpEx, budgeted operating cost and budget variance.
+
+Visuals include:
+- Operating cost per barrel by field.
+- Actual operating costs versus budget.
+- Offshore versus onshore cost comparison.
+- Maintenance share of operating expenditure.
+- Operating cost by field.
+
+The screenshot shows total operating expenditure of approximately USD 80.4M, maintenance expenditure of approximately USD 19.55M, operating cost per barrel of USD 17.86, maintenance share of 24.31%, budgeted operating cost of approximately USD 81.84M and a favourable budget variance of approximately -USD 1.46M (subject to the report's variance sign convention).
+
+### 4. HSE Performance
+
+The page provides category, severity, facility and date-range filters. Its KPI strip includes total HSE incidents, lost-time injuries, lost-time injury percentage, environmental incidents, facilities reporting incidents and average resolution time.
+
+Visuals include:
+- HSE incidents by facility.
+- Most common HSE incident categories.
+- Average resolution time by incident category.
+- Environmental incident trend.
+- Lost-time injuries by incident category.
+
+The screenshot shows 500 HSE incidents, 25 lost-time injuries, a 5% lost-time injury percentage, 80 environmental incidents, 12 facilities reporting incidents and an average resolution time of 25 days.
+
+### 5. Senior Management
+
+The management page consolidates operational indicators across the report. It includes filters for category, severity, facility and region, plus a date range.
+
+Visuals include:
+- KPI summary covering production, operating expenditure, target achievement, budget variance, environmental incidents, lost-time injuries and equipment failure events.
+- Facilities with highest unplanned downtime.
+- Monthly production performance versus target.
+- HSE exposure by facility.
+- Operating budget variance by cost category.
+- Management intervention status by area.
+
+The management view is intended to help identify areas requiring attention and direct users to the relevant detailed report page.
 
 ## Data and model architecture
 
-The report is built on the PostgreSQL `analytics` schema. The database workflow is documented in the SQL and methodology files in this repository:
+The report is built on the PostgreSQL `analytics` schema. The repository documents the pipeline:
 
 1. Raw source tables.
-2. Typed and cleaned staging tables.
-3. Data-quality checks and corrections.
-4. Analytics tables with primary and foreign-key constraints.
-5. Analytical views for reporting and analysis.
-6. Power BI semantic model and report pages.
+2. Typed staging tables.
+3. Missing-value treatment, standardisation and validation.
+4. Referential-integrity checks and corrections.
+5. Analytics tables with relational constraints.
+6. Analytical views.
+7. Power BI model and report pages.
 
 The report includes a custom Bullet Chart visual.
+
+## Items to correct or verify before final portfolio publication
+
+The supplied screenshots reveal two presentation/data-model checks worth resolving:
+
+1. **HSE page title:** The HSE screenshot's page heading reads “Equipment Reliability”, although the navigation indicates the HSE page is selected. Rename the heading to “HSE Performance” so the page is not confused with the equipment page.
+2. **Management production KPI:** The management screenshot labels a value of 272.36K as “Oil Production”. The Production page shows 272.36K hours for “Total Production Downtime”, while total oil production is approximately 4.50M barrels. Verify the measure assigned to the management KPI card and correct its label or measure before publishing the final report.
+
+These are visual consistency checks based on the supplied screenshots; they should be verified in Power BI Desktop before changing the report.
 
 ## Reproducing the report
 
@@ -58,12 +117,13 @@ The report includes a custom Bullet Chart visual.
 2. Load and validate the staging and analytics tables.
 3. Create the analytical views.
 4. Open the Power BI report in Power BI Desktop.
-5. Configure the PostgreSQL connection for your local environment and refresh the model.
+5. Configure the PostgreSQL connection for the local environment and refresh the model.
 
-Connection credentials and machine-specific settings should be configured locally and must not be committed to the repository.
+Do not commit database passwords, credentials or machine-specific connection settings.
 
 ## Interpretation and limitations
 
-- The dataset is synthetic and should be treated as an analytical demonstration, not as evidence about a real operator.
-- Dashboard findings depend on the assumptions and definitions embedded in the synthetic dataset and report measures.
-- HSE indicators should only be interpreted using the fields actually available in the dataset. Rates requiring workforce-hours exposure data, such as TRIR or LTIFR, should not be inferred without that denominator.
+- The project uses synthetic data; the figures are demonstrations of analytical workflow and dashboard design, not evidence about a real operator.
+- Dashboard findings depend on the synthetic dataset, business rules, filters and DAX measures.
+- Do not infer rates requiring workforce-hours exposure data (such as TRIR or LTIFR) without the required denominator.
+- Interpret budget variance using the measure's documented sign convention.
