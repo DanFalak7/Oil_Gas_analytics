@@ -106,14 +106,9 @@ The report is built on the PostgreSQL `analytics` schema. The repository documen
 
 The report includes a custom Bullet Chart visual.
 
-## Items to correct or verify before final portfolio publication
+## Dashboard quality checks
 
-The supplied screenshots reveal two presentation/data-model checks worth resolving:
-
-1. **HSE page title:** The HSE screenshot's page heading reads “Equipment Reliability”, although the navigation indicates the HSE page is selected. Rename the heading to “HSE Performance” so the page is not confused with the equipment page.
-2. **Management production KPI:** The management screenshot labels a value of 272.36K as “Oil Production”. The Production page shows 272.36K hours for “Total Production Downtime”, while total oil production is approximately 4.50M barrels. Verify the measure assigned to the management KPI card and correct its label or measure before publishing the final report.
-
-These are visual consistency checks based on the supplied screenshots; they should be verified in Power BI Desktop before changing the report.
+The previously identified screenshot inconsistencies have been corrected in the published report: the HSE page heading reads “HSE Performance”, and the Senior Management oil-production KPI uses the oil-production measure rather than the production-downtime measure. The screenshots in this repository reflect the corrected dashboard.
 
 ## Reproducing the report
 
